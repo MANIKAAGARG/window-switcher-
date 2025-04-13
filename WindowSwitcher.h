@@ -4,13 +4,14 @@
 #include <iostream>
 #include <stack>
 #include "WindowNode.h"
+using namespace std;
 
 class WindowSwitcher {
 private:
     WindowNode* head;
     WindowNode* tail;
     WindowNode* current;
-    std::stack<std::string> closedStack;
+    stack<string> closedStack;
 
 public:
     WindowSwitcher() {
@@ -26,14 +27,14 @@ public:
             newNode->prev = tail;
             tail = newNode;
         }
-        std::cout << "[Opened] " << name << std::endl;
+        cout << "[Opened] " << name <<endl;
     }
 
     void switchNext() {
         if (current && current->next) {
             current = current->next;
         } else {
-            std::cout << "Already at the last window.\n";
+            cout << "Already at the last window.\n";
         }
         displayCurrent();
     }
@@ -42,18 +43,18 @@ public:
         if (current && current->prev) {
             current = current->prev;
         } else {
-            std::cout << "Already at the first window.\n";
+            cout << "Already at the first window.\n";
         }
         displayCurrent();
     }
 
     void closeCurrent() {
         if (!current) {
-            std::cout << "No windows to close.\n";
+            cout << "No windows to close.\n";
             return;
         }
 
-        std::cout << "[Closed] " << current->appName << std::endl;
+        cout << "[Closed] " << current->appName <<endl;
         closedStack.push(current->appName);
 
         if (current == head && current == tail) {
@@ -83,21 +84,21 @@ public:
 
     void reopenLastClosed() {
         if (closedStack.empty()) {
-            std::cout << "No recently closed windows.\n";
+            cout << "No recently closed windows.\n";
             return;
         }
         std::string name = closedStack.top();
         closedStack.pop();
         openWindow(name);
         current = tail;
-        std::cout << "[Reopened] " << name << std::endl;
+        cout << "[Reopened] " << name <<endl;
     }
 
     void displayCurrent() {
         if (current) {
-            std::cout << "[Current Window] " << current->appName << std::endl;
+            cout << "[Current Window] " << current->appName <<endl;
         } else {
-            std::cout << "No active windows.\n";
+            cout << "No active windows.\n";
         }
     }
 };
