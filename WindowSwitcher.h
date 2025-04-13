@@ -87,7 +87,7 @@ public:
             cout << "No recently closed windows.\n";
             return;
         }
-        std::string name = closedStack.top();
+        string name = closedStack.top();
         closedStack.pop();
         openWindow(name);
         current = tail;
